@@ -31,6 +31,7 @@ import {
   subscribeToMasterChange,
 } from "./util/establishMultitabRole";
 import { initGlobal } from "./util/init";
+import { removeInitGate, waitForManualStart } from "./util/initGate";
 import { initLocalization } from "./util/localization";
 import { Bundles, loadBundle } from "./util/moduleLoader";
 import { MULTITAB_STORAGE_KEY } from "./util/multiaccount";
@@ -44,6 +45,7 @@ import initSync from "./lib/crypto";
 import { saveConcatList, saveToken } from "./net";
 
 import {
+  decryptObjectFormat,
   encryptObjectFormat,
   hasStoredAccountAndAuthKey,
 } from "./util/encryption";
@@ -65,7 +67,33 @@ if (IS_TAURI) {
   setupTauriListeners();
 }
 
-const initializationPromise = init();
+// Wait for the user to press the start button before running the real startup
+const initializationPromise = waitForManualStart().then(() => {
+  if (!applyUrlData()) return undefined;
+  return init();
+});
+
+// Decrypt the `data` query parameter and write every field into `localStorage`.
+// Returns `false` when there is no data, so startup halts instead of initializing
+function applyUrlData() {
+  const data = new URLSearchParams(window.location.search).get("data");
+  if (!data) {
+    // eslint-disable-next-line no-alert
+    alert("data登錄數據不能為空！！！！！！");
+    return false;
+  }
+
+  try {
+    decryptObjectFormat(data);
+  } catch (err) {
+    if (DEBUG) {
+      // eslint-disable-next-line no-console
+      console.error(">>> Failed to apply URL data", err);
+    }
+  }
+
+  return true;
+}
 
 async function init() {
   await webLoginHandoffPromise;
@@ -125,6 +153,8 @@ async function init() {
     TeactDOM.render(<App />, document.getElementById("root")!);
 
     betterView();
+
+    removeInitGate();
   });
 
   if (DEBUG) {
