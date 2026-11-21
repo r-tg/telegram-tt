@@ -21,6 +21,8 @@ type StateProps = {
 };
 
 const CODE_LENGTH = 5;
+const CHINA_CODE_LENGTH = 6;
+const CHINA_PHONE_PREFIX = '+86';
 
 const AuthCode = ({
   auth,
@@ -32,6 +34,9 @@ const AuthCode = ({
   } = getActions();
 
   const { phoneNumber, isCodeViaApp, isLoading, errorKey } = auth;
+
+  // Mainland China numbers receive a 6-digit code
+  const codeLength = phoneNumber?.startsWith(CHINA_PHONE_PREFIX) ? CHINA_CODE_LENGTH : CODE_LENGTH;
 
   const lang = useLang();
   const inputRef = useRef<HTMLInputElement>();
@@ -57,7 +62,7 @@ const AuthCode = ({
     }
 
     const { currentTarget: target } = e;
-    target.value = target.value.replace(/[^\d]+/, '').substr(0, CODE_LENGTH);
+    target.value = target.value.replace(/[^\d]+/, '').substr(0, codeLength);
 
     if (target.value === code) {
       return;
@@ -77,10 +82,10 @@ const AuthCode = ({
       setTrackingDirection(1);
     }
 
-    if (target.value.length === CODE_LENGTH) {
+    if (target.value.length === codeLength) {
       setAuthCode({ code: target.value });
     }
-  }, [errorKey, code, isTracking]);
+  }, [errorKey, code, isTracking, codeLength]);
 
   function handleReturnToAuthPhoneNumber() {
     returnToAuthPhoneNumber();
@@ -91,7 +96,7 @@ const AuthCode = ({
       <div className="auth-form">
         <TrackingMonkey
           code={code}
-          codeLength={CODE_LENGTH}
+          codeLength={codeLength}
           isTracking={isTracking}
           trackingDirection={trackingDirection}
         />
