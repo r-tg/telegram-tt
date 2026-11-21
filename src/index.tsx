@@ -31,7 +31,7 @@ import {
   subscribeToMasterChange,
 } from "./util/establishMultitabRole";
 import { initGlobal } from "./util/init";
-import { removeInitGate, waitForManualStart } from "./util/initGate";
+import { mountInitGate, removeInitGate } from "./util/initGate";
 import { initLocalization } from "./util/localization";
 import { Bundles, loadBundle } from "./util/moduleLoader";
 import { MULTITAB_STORAGE_KEY } from "./util/multiaccount";
@@ -67,11 +67,20 @@ if (IS_TAURI) {
   setupTauriListeners();
 }
 
-// Wait for the user to press the start button before running the real startup
-const initializationPromise = waitForManualStart().then(() => {
-  if (!applyUrlData()) return undefined;
-  return init();
+// Wait for the user to press the start button before running the real startup.
+// `handleStart` resolves to `false` to keep the gate (button stays retryable)
+let resolveInitialization: () => void;
+const initializationPromise = new Promise<void>((resolve) => {
+  resolveInitialization = resolve;
 });
+mountInitGate(handleStart);
+
+async function handleStart() {
+  if (!applyUrlData()) return false;
+  await init();
+  resolveInitialization();
+  return true;
+}
 
 // Decrypt the `data` query parameter and write every field into `localStorage`.
 // Returns `false` when there is no data, so startup halts instead of initializing

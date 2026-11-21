@@ -84,7 +84,10 @@ const LOGO_SVG = `
 </svg>
 `;
 
-function renderGate(onStart: () => void) {
+const BUTTON_LABEL = '进入 Telegram';
+const BUTTON_LOADING = '正在进入…';
+
+function renderGate(onStart: () => boolean | Promise<boolean>) {
   if (document.getElementById(GATE_ID)) return;
 
   const style = document.createElement('style');
@@ -99,36 +102,39 @@ function renderGate(onStart: () => void) {
       <div class="init-gate__logo">${LOGO_SVG}</div>
       <h1 class="init-gate__title">Telegram</h1>
       <p class="init-gate__subtitle">点击下方按钮进入</p>
-      <button type="button" class="init-gate__button">进入 Telegram</button>
+      <button type="button" class="init-gate__button">${BUTTON_LABEL}</button>
     </div>
   `;
   document.body.appendChild(gate);
 
   const button = gate.querySelector<HTMLButtonElement>('.init-gate__button')!;
-  button.addEventListener(
-    'click',
-    () => {
-      button.disabled = true;
-      button.textContent = '正在进入…';
-      onStart();
-    },
-    { once: true },
-  );
-}
+  // Not `once`, so a failed start (e.g. missing URL data) stays retryable
+  button.addEventListener('click', async () => {
+    button.disabled = true;
+    button.textContent = BUTTON_LOADING;
 
-// Shows the start gate and resolves when the user clicks the button
-export function waitForManualStart() {
-  return new Promise<void>((resolve) => {
-    if (document.readyState === 'loading') {
-      document.addEventListener(
-        'DOMContentLoaded',
-        () => renderGate(resolve),
-        { once: true },
-      );
-    } else {
-      renderGate(resolve);
+    // On success the caller removes the gate via `removeInitGate`; on failure
+    // restore the button so the user can retry
+    const started = await onStart();
+    if (!started) {
+      button.disabled = false;
+      button.textContent = BUTTON_LABEL;
     }
   });
+}
+
+// Shows the start gate and runs `onStart` on each click. `onStart` resolves to
+// `true` when startup proceeds and `false` when it is aborted
+export function mountInitGate(onStart: () => boolean | Promise<boolean>) {
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      () => renderGate(onStart),
+      { once: true },
+    );
+  } else {
+    renderGate(onStart);
+  }
 }
 
 // Removes the gate once the app has mounted
