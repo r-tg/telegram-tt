@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Chrome: launch dev server",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:1234",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "${workspaceFolder}/.cache/chrome-debug-profile",
+      "preLaunchTask": "npm: dev",
+      "sourceMapPathOverrides": {
+        "/@fs/*": "/*",
+        "/src/*": "${workspaceFolder}/src/*"
+      },
+      "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"]
+    },
+    {
+      "name": "Chrome: attach to running dev server",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:1234",
+      "webRoot": "${workspaceFolder}",
+      "userDataDir": "${workspaceFolder}/.cache/chrome-debug-profile",
+      "sourceMapPathOverrides": {
+        "/@fs/*": "/*",
+        "/src/*": "${workspaceFolder}/src/*"
+      },
+      "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"]
+    }
+  ]
+}

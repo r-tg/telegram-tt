@@ -178,11 +178,11 @@ const AuthCode = ({
             {lang('LoginQRCancel')}
           </Button>
         )}
-        {passkeyOption && (
+        {/* {passkeyOption && (
           <Button className="auth-button" isText onClick={handleLoginWithPasskey}>
             {lang('LoginPasskey')}
           </Button>
-        )}
+        )} */}
         {suggestedLanguage && suggestedLanguage !== language && continueText && (
           <Button className="auth-button" isText isLoading={isLoading} onClick={handleLangChange}>
             {continueText}

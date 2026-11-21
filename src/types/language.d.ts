@@ -3730,8 +3730,8 @@ export interface LangPairWithVariables<V = LangVariable> {
     'bot': V;
   };
   'CreateBotUsernameHint': {
-    'suffixes': V;
     'premium': V;
+    'suffixes': V;
   };
   'CreateBotUsernamePremium': {
     'suffix': V;
@@ -3801,14 +3801,14 @@ export interface LangPairWithVariables<V = LangVariable> {
     'actions': V;
   };
   'LanguageAlert': {
-    'language': V;
     'percent': V;
+    'language': V;
     'link': V;
     'settings': V;
   };
   'LanguageCustomAlert': {
-    'language': V;
     'percent': V;
+    'language': V;
     'link': V;
     'settings': V;
   };
@@ -4238,23 +4238,23 @@ export interface LangPairWithVariables<V = LangVariable> {
     'number': V;
   };
   'GiftInfoPeerOriginalInfo': {
-    'peer': V;
     'date': V;
+    'peer': V;
   };
   'GiftInfoPeerOriginalInfoSender': {
     'sender': V;
-    'peer': V;
     'date': V;
+    'peer': V;
   };
   'GiftInfoPeerOriginalInfoText': {
-    'peer': V;
     'date': V;
+    'peer': V;
     'text': V;
   };
   'GiftInfoPeerOriginalInfoTextSender': {
     'sender': V;
-    'peer': V;
     'date': V;
+    'peer': V;
     'text': V;
   };
   'GiftCraftButton': {
@@ -4270,9 +4270,9 @@ export interface LangPairWithVariables<V = LangVariable> {
     'giftLine': V;
   };
   'GiftTransferConfirmDescription': {
+    'amount': V;
     'gift': V;
     'peer': V;
-    'amount': V;
   };
   'GiftTransferConfirmDescriptionFree': {
     'gift': V;
@@ -4539,22 +4539,22 @@ export interface LangPairWithVariables<V = LangVariable> {
     'title': V;
   };
   'ActionPaymentDone': {
-    'amount': V;
     'user': V;
+    'amount': V;
   };
   'ActionPaymentDoneFor': {
-    'amount': V;
     'user': V;
+    'amount': V;
     'invoice': V;
   };
   'ActionPaymentInitRecurringFor': {
-    'amount': V;
     'user': V;
+    'amount': V;
     'invoice': V;
   };
   'ActionPaymentInitRecurring': {
-    'amount': V;
     'user': V;
+    'amount': V;
   };
   'ActionPaymentUsedRecurring': {
     'amount': V;
@@ -4661,30 +4661,30 @@ export interface LangPairWithVariables<V = LangVariable> {
     'channel': V;
   };
   'ActionStarGiftSoldFromOffer': {
+    'cost': V;
     'gift': V;
     'user': V;
-    'cost': V;
   };
   'ActionStarGiftBoughtFromOffer': {
     'user': V;
-    'gift': V;
     'cost': V;
+    'gift': V;
   };
   'ActionStarGiftReceivedAnonymous': {
     'cost': V;
   };
   'ActionStarGiftSentChannel': {
     'user': V;
-    'channel': V;
     'cost': V;
+    'channel': V;
   };
   'ActionStarGiftSentChannelYou': {
-    'channel': V;
     'cost': V;
+    'channel': V;
   };
   'ActionStarGiftPrepaidUpgradeYou': {
-    'cost': V;
     'peer': V;
+    'cost': V;
   };
   'ActionStarGiftPrepaidUpgrade': {
     'peer': V;
@@ -4735,35 +4735,35 @@ export interface LangPairWithVariables<V = LangVariable> {
     'cost': V;
   };
   'ActionStarGiftOfferOutgoing': {
+    'gift': V;
     'peer': V;
     'cost': V;
-    'gift': V;
   };
   'ActionStarGiftOfferIncoming': {
     'peer': V;
-    'cost': V;
     'gift': V;
+    'cost': V;
   };
   'ActionStarGiftOfferExpires': {
     'time': V;
   };
   'ActionStarGiftOfferDeclinedOutgoing': {
     'peer': V;
-    'gift': V;
     'cost': V;
+    'gift': V;
   };
   'ActionStarGiftOfferDeclinedIncoming': {
     'peer': V;
-    'gift': V;
     'cost': V;
+    'gift': V;
   };
   'GiftOfferRejectText': {
     'user': V;
   };
   'GiftOfferAcceptText': {
+    'price': V;
     'gift': V;
     'user': V;
-    'price': V;
   };
   'GiftOfferAcceptReceive': {
     'amount': V;
@@ -4772,12 +4772,12 @@ export interface LangPairWithVariables<V = LangVariable> {
     'amount': V;
   };
   'GiftOfferPriceLow': {
-    'percent': V;
     'gift': V;
+    'percent': V;
   };
   'GiftOfferPriceHigh': {
-    'percent': V;
     'gift': V;
+    'percent': V;
   };
   'ActionSuggestedPhotoYou': {
     'user': V;
@@ -4953,8 +4953,8 @@ export interface LangPairWithVariables<V = LangVariable> {
     'amount': V;
   };
   'FrozenAccountAppealSubtitle': {
-    'botLink': V;
     'date': V;
+    'botLink': V;
   };
   'ActionPaidMessagePrice': {
     'peer': V;
@@ -4973,8 +4973,8 @@ export interface LangPairWithVariables<V = LangVariable> {
     'peer': V;
   };
   'ApiMessageActionPaidMessagesRefundedOutgoing': {
-    'stars': V;
     'user': V;
+    'stars': V;
   };
   'ApiMessageActionPaidMessagesRefundedIncoming': {
     'user': V;
@@ -5008,12 +5008,12 @@ export interface LangPairWithVariables<V = LangVariable> {
     'stars': V;
   };
   'ApiMessageMessageActionResaleStarGiftUniqueOutgoing': {
-    'stars': V;
     'gift': V;
+    'stars': V;
   };
   'ApiMessageMessageActionResaleStarGiftUniqueIncoming': {
-    'stars': V;
     'gift': V;
+    'stars': V;
   };
   'ModalStarsBalanceBarDescription': {
     'stars': V;
@@ -5025,12 +5025,12 @@ export interface LangPairWithVariables<V = LangVariable> {
     'date': V;
   };
   'GiftBuyConfirmDescription': {
-    'gift': V;
     'stars': V;
+    'gift': V;
   };
   'GiftBuyForPeerConfirmDescription': {
-    'gift': V;
     'stars': V;
+    'gift': V;
     'peer': V;
   };
   'GiftBuyEqualsTo': {
@@ -5060,20 +5060,20 @@ export interface LangPairWithVariables<V = LangVariable> {
     'amount': V;
   };
   'SuggestedPostPublishSchedule': {
-    'peer': V;
     'date': V;
+    'peer': V;
   };
   'SuggestedPostPublishScheduleYou': {
-    'peer': V;
     'date': V;
+    'peer': V;
   };
   'SuggestedPostPublished': {
-    'peer': V;
     'date': V;
+    'peer': V;
   };
   'SuggestedPostPublishedYou': {
-    'peer': V;
     'date': V;
+    'peer': V;
   };
   'SuggestedPostCharged': {
     'user': V;
@@ -5083,12 +5083,12 @@ export interface LangPairWithVariables<V = LangVariable> {
     'amount': V;
   };
   'SuggestedPostReceiveAmount': {
-    'peer': V;
     'duration': V;
+    'peer': V;
   };
   'SuggestedPostReceiveAmountYou': {
-    'peer': V;
     'duration': V;
+    'peer': V;
   };
   'SuggestedPostRefund': {
     'peer': V;
@@ -5144,14 +5144,14 @@ export interface LangPairWithVariables<V = LangVariable> {
     'duration': V;
   };
   'SuggestedPostConfirmDetailsWithTimeAdmin': {
+    'time': V;
     'amount': V;
     'commission': V;
-    'time': V;
     'duration': V;
   };
   'SuggestedPostConfirmDetailsWithTimeUser': {
-    'amount': V;
     'time': V;
+    'amount': V;
     'duration': V;
   };
   'ButtonPublishAtTime': {
@@ -5180,21 +5180,21 @@ export interface LangPairWithVariables<V = LangVariable> {
   };
   'MessageActionAppendTodo': {
     'peer': V;
-    'task': V;
     'list': V;
+    'task': V;
   };
   'MessageActionAppendTodoYou': {
-    'task': V;
     'list': V;
+    'task': V;
   };
   'MessageActionAppendTodoMultiple': {
     'peer': V;
-    'tasks': V;
     'list': V;
+    'tasks': V;
   };
   'MessageActionAppendTodoMultipleYou': {
-    'tasks': V;
     'list': V;
+    'tasks': V;
   };
   'MessageActionPollAppendAnswer': {
     'peer': V;
@@ -5268,8 +5268,8 @@ export interface LangPairWithVariables<V = LangVariable> {
     'user': V;
   };
   'ActionNewCreatorPending': {
-    'user': V;
     'from': V;
+    'user': V;
   };
   'ActionChangeCreator': {
     'from': V;
@@ -5298,8 +5298,8 @@ export interface LangPairWithVariables<V = LangVariable> {
     'timer': V;
   };
   'GiftAuctionRoundValue': {
-    'current': V;
     'total': V;
+    'current': V;
   };
   'GiftAuctionPlaceBidButton': {
     'amount': V;
@@ -5314,9 +5314,9 @@ export interface LangPairWithVariables<V = LangVariable> {
     'count': V;
   };
   'GiftAuctionBoughtGiftHeader': {
+    'round': V;
     'gift': V;
     'giftNumber': V;
-    'round': V;
   };
   'GiftAuctionTopPosition': {
     'position': V;
@@ -5582,13 +5582,13 @@ export interface LangPairWithVariables<V = LangVariable> {
     'user': V;
   };
   'ChatGiveawayInfoNotQualified': {
-    'chat': V;
     'date': V;
+    'chat': V;
   };
   'ChatGiveawayInfoNotQualifiedMany': {
+    'date': V;
     'chat': V;
     'otherChannels': V;
-    'date': V;
   };
   'ChatGiveawayInfoParticipating': {
     'chat': V;
@@ -5724,19 +5724,19 @@ export interface LangPairWithVariables<V = LangVariable> {
     'amount': V;
   };
   'MediaCounter': {
-    'current': V;
     'total': V;
+    'current': V;
   };
   'PaymentCheckoutAcceptTerms': {
-    'link': V;
     'bot': V;
+    'link': V;
   };
   'PaymentConfirmationMessage': {
     'cardName': V;
   };
   'PaymentInfoHint': {
-    'amount': V;
     'title': V;
+    'amount': V;
   };
   'MessageReadAt': {
     'date': V;
@@ -5776,14 +5776,14 @@ export interface LangPairWithVariables<V = LangVariable> {
     'percent': V;
   };
   'StarsTransferInfo': {
-    'title': V;
-    'bot': V;
     'amount': V;
+    'bot': V;
+    'title': V;
   };
   'StarsTransferUnlockInfo': {
-    'media': V;
-    'chat': V;
     'amount': V;
+    'chat': V;
+    'media': V;
   };
   'StarsNeededText': {
     'user': V;
@@ -6180,13 +6180,13 @@ export interface LangPairPluralWithVariables<V = LangVariable> {
     'count': V;
   };
   'StarsSubscribeText': {
-    'chat': V;
     'amount': V;
+    'chat': V;
   };
   'StarsSubscribeBotText': {
-    'name': V;
-    'bot': V;
     'amount': V;
+    'bot': V;
+    'name': V;
   };
   'FolderLinkTitleDescriptionChats': {
     'count': V;
@@ -6208,12 +6208,12 @@ export interface LangPairPluralWithVariables<V = LangVariable> {
   };
   'ActionGameScore': {
     'from': V;
-    'count': V;
     'game': V;
+    'count': V;
   };
   'ActionGameScoreYou': {
-    'count': V;
     'game': V;
+    'count': V;
   };
   'ActionGameScoreNoGame': {
     'from': V;
@@ -6458,28 +6458,28 @@ export interface LangPairPluralWithVariables<V = LangVariable> {
   };
   'BoostingGiveawayHowItWorksSubText': {
     'date': V;
-    'quantity': V;
     'chat': V;
+    'quantity': V;
   };
   'BoostingGiveawayHowItWorksSubTextEnd': {
     'date': V;
-    'quantity': V;
     'chat': V;
+    'quantity': V;
   };
   'BoostingGiveawayHowItWorksSubTextSeveral1': {
     'date': V;
-    'quantity': V;
     'chat': V;
     'otherChannels': V;
+    'quantity': V;
   };
   'BoostingGiveawayHowItWorksSubTextSeveral2': {
     'count': V;
   };
   'BoostingGiveawayHowItWorksSubTextSeveralEnd1': {
     'date': V;
-    'quantity': V;
     'chat': V;
     'otherChannels': V;
+    'quantity': V;
   };
   'BoostingGiveawayHowItWorksText': {
     'chat': V;

@@ -120,9 +120,13 @@ export async function init(initialArgs: ApiInitialArgs, onConnected?: NoneToVoid
   (self as any).maxBufferSize = maxBufferSize;
 
   client = new TelegramClient(session, TELEGRAM_API_ID, TELEGRAM_API_HASH, {
-    deviceModel: navigator.userAgent || userAgent || DEFAULT_USER_AGENT,
+    // deviceModel: navigator.userAgent || userAgent || DEFAULT_USER_AGENT,
+    deviceModel: 'Telegram Desktop 6.93 x64',
+
     systemVersion: platform || DEFAULT_PLATFORM,
-    appVersion: `${APP_VERSION} ${APP_CODE_NAME}`,
+    // appVersion: `${APP_VERSION} ${APP_CODE_NAME}`,
+    appVersion: `10.9.17 A`,
+
     useWSS: true,
     additionalDcsDisabled: IS_TEST,
     shouldDebugExportedSenders,
@@ -131,7 +135,8 @@ export async function init(initialArgs: ApiInitialArgs, onConnected?: NoneToVoid
     dcId,
     langPack: LANG_PACK,
     langCode,
-    systemLangCode: navigator.language,
+    // systemLangCode: navigator.language,
+    systemLangCode: 'en-US',
     isTestServerRequested,
   });
 
