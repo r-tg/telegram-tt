@@ -40,10 +40,29 @@ IMAGE="${IMAGE:-telegram-tt-${BRANCH_SLUG:-nogit}}"
 REGISTRY="${REGISTRY:-ghcr.io/r-tg}"
 PUSH="${PUSH:-true}"
 PLATFORM="${PLATFORM:-}"
+BUMP="${BUMP:-true}"
 
 # Resolve the git revision; fall back gracefully outside a git checkout.
 HEAD="$(git rev-parse --short=7 HEAD 2>/dev/null || true)"
-VERSION="${VERSION:-$(node -p 'require("./package.json").buildVersion')}"
+
+# Resolve the version tag. Without an explicit VERSION, bump the `buildVersion`
+# patch in package.json (unless BUMP=false) and tag the image with the result.
+if [ -n "${VERSION:-}" ]; then
+  :
+elif [ "$BUMP" = "true" ]; then
+  VERSION="$(node -e '
+    const fs = require("fs");
+    const path = "./package.json";
+    const text = fs.readFileSync(path, "utf8");
+    const match = text.match(/("buildVersion"\s*:\s*")(\d+)\.(\d+)\.(\d+)(")/);
+    if (!match) { console.error("buildVersion x.y.z not found in package.json"); process.exit(1); }
+    const next = match[2] + "." + match[3] + "." + (Number(match[4]) + 1);
+    fs.writeFileSync(path, text.replace(match[0], match[1] + next + match[5]));
+    process.stdout.write(next);
+  ')"
+else
+  VERSION="$(node -p 'require("./package.json").buildVersion')"
+fi
 
 if [ -n "$REGISTRY" ]; then
   REPO="${REGISTRY%/}/${IMAGE}"
