@@ -34,7 +34,8 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)"
 BRANCH_SLUG="$(printf '%s' "${BRANCH:-nogit}" | tr '[:upper:]' '[:lower:]' | sed -e 's#[^a-z0-9._-]#-#g' -e 's#^[._-]*##' -e 's#[._-]*$##')"
 
 IMAGE="${IMAGE:-telegram-tt-${BRANCH_SLUG:-nogit}}"
-REGISTRY="${REGISTRY:-ghcr.io/r-tg}"
+# REGISTRY="${REGISTRY:-ghcr.io/r-tg}"
+REGISTRY="${REGISTRY:-}"
 PUSH="${PUSH:-true}"
 PLATFORM="${PLATFORM:-}"
 
