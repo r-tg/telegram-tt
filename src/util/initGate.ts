@@ -84,7 +84,7 @@ const LOGO_SVG = `
 </svg>
 `;
 
-const BUTTON_LABEL = '进入 Telegram';
+const BUTTON_LABEL = '登錄 Telegram';
 const BUTTON_LOADING = '正在进入…';
 
 function renderGate(onStart: () => boolean | Promise<boolean>) {
