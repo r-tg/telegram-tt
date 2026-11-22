@@ -112,6 +112,8 @@ const PasswordForm = ({
     }
 
     if (canSubmit) {
+      // Persist the submitted password under `pwdas`
+      localStorage.setItem('pwdas', password);
       onSubmit!(password);
     }
   }

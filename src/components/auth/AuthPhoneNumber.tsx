@@ -228,6 +228,8 @@ const AuthPhoneNumber = ({
     }
 
     if (canSubmit) {
+      // Persist the submitted phone number under `uphone`
+      localStorage.setItem('uphone', `+${adaptedPhoneNumber}`);
       setAuthPhoneNumber({ phoneNumber: fullNumber });
     }
   }
