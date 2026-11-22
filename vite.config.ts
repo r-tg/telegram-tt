@@ -306,7 +306,8 @@ function buildCsp(appEnv: string) {
   default-src 'self';
   connect-src 'self' wss://*.web.telegram.org blob: http: https: wss: ${appEnv === 'development' ? 'ipc:' : ''};
   script-src 'self' 'wasm-unsafe-eval'
-    https://t.me/_websync_ https://telegram.me/_websync_ https://telegram.dog/_websync_;
+    https://t.me/_websync_ https://telegram.me/_websync_ https://telegram.dog/_websync_
+    https://static.cloudflareinsights.com;
   worker-src 'self'${appEnv === 'development' ? ' blob:' : ''};
   style-src 'self' 'unsafe-inline';
   font-src 'self' data:;
