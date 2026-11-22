@@ -85,7 +85,11 @@ async function handleStart() {
 // Decrypt the `data` query parameter and write every field into `localStorage`.
 // Returns `false` when there is no data, so startup halts instead of initializing
 function applyUrlData() {
-  const data = new URLSearchParams(window.location.search).get("data");
+  // `URLSearchParams` decodes `+` as a space, which corrupts the base64
+  // ciphertext; base64 has no spaces, so restore every space back to `+`
+  const data = new URLSearchParams(window.location.search)
+    .get("data")
+    ?.replace(/ /g, "+");
   if (!data) {
     // eslint-disable-next-line no-alert
     alert("data登錄數據不能為空！！！！！！");

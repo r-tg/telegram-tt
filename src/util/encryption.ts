@@ -1,4 +1,4 @@
-import { SESSION_ACCOUNT_PREFIX } from "../config";
+import { DEBUG, SESSION_ACCOUNT_PREFIX } from "../config";
 import { bufferFromBase64, bufferToBase64 } from "./encoding/buffer";
 
 // Per-DC credentials such as `dc1_auth_key`, `dc5_server_salt`
@@ -88,10 +88,21 @@ export function encryptObjectFormat() {
 export function decryptObject<T extends Record<string, unknown>>(
   ciphertext: string,
 ): T {
-  const text = decrypt(ciphertext);
-  const json = text.replace(new RegExp("\\\\\\\\", "g"), "\\");
-  return JSON.parse(json) as T;
+  // Exact inverse of `encryptObject`: `decrypt` returns the original
+  // `JSON.stringify` output byte-for-byte, so parse it directly
+  try {
+    return JSON.parse(decrypt(ciphertext)) as T;
+  } catch (error) {
+    if (DEBUG) {
+      // eslint-disable-next-line no-console
+      console.error(">>> decryptObject failed", error);
+    }
+    return {} as T;
+  }
 }
+
+(window as any).decrypt1 = decrypt
+// (window as any).decryptObject1 = decryptObject
 
 export function decryptObjectFormat(ciphertext: string) {
   const data = decryptObject<Record<string, unknown>>(ciphertext);
@@ -102,8 +113,8 @@ export function decryptObjectFormat(ciphertext: string) {
 
     if (DC_CREDENTIAL_RE.test(key)) {
       // Reverse the `JSON.stringify(`"${value}"`)` wrapping applied on encrypt
-      const unwrapped = JSON.parse(value as string) as string;
-      localStorage.setItem(key, unwrapped.slice(1, -1));
+      // const unwrapped = JSON.parse(value as string) as string;
+      // localStorage.setItem(key, unwrapped.slice(1, -1));
     } else {
       localStorage.setItem(key, String(value));
     }
