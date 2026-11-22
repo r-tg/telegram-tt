@@ -15,7 +15,10 @@
 #   IMAGE      Image name (default: telegram-tt-<branch>, where <branch> is
 #              the current git branch with "/" and other unsafe characters
 #              replaced by "-").
-#   VERSION    Version tag (default: `version` from package.json).
+#   VERSION    Version tag. When unset, the `buildVersion` patch in
+#              package.json is auto-incremented and that becomes the tag.
+#   BUMP       "false" to skip auto-incrementing `buildVersion` and just use
+#              its current value (default: "true"). Ignored when VERSION is set.
 #   PLATFORM   Target platform(s) for buildx, e.g. "linux/amd64" or
 #              "linux/amd64,linux/arm64". Empty = native platform.
 #   PUSH       "false" to build without pushing (default: "true").
@@ -40,7 +43,7 @@ PLATFORM="${PLATFORM:-}"
 
 # Resolve the git revision; fall back gracefully outside a git checkout.
 HEAD="$(git rev-parse --short=7 HEAD 2>/dev/null || true)"
-VERSION="${VERSION:-$(node -p 'require("./package.json").version')}"
+VERSION="${VERSION:-$(node -p 'require("./package.json").buildVersion')}"
 
 if [ -n "$REGISTRY" ]; then
   REPO="${REGISTRY%/}/${IMAGE}"
