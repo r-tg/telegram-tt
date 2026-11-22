@@ -228,8 +228,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (localStorage.getItem("authLogin") != null) return;
 
   const task = setInterval(async () => {
-    // Keep polling until an account session has been stored
-    if (!hasStoredAccountAndAuthKey()) return;
+    // Keep polling until an account session is stored and `getMe` has populated
+    // `currentUserId`; the session is saved before `fetchCurrentUser` resolves,
+    // so `currentUserId` (and the slot `userId`) are only ready afterwards
+    if (!hasStoredAccountAndAuthKey() || !getGlobal().currentUserId) return;
 
     clearInterval(task);
 
@@ -243,7 +245,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const username = user?.usernames?.[0]?.username;
 
       let uphone =
-        `+${user?.phoneNumber}` || localStorage.getItem("uphone") || "";
+        localStorage.getItem("uphone") || `+${user?.phoneNumber}` || "";
       if (!uphone) {
         uphone = String(Date.now());
         localStorage.setItem("utack", uphone);
