@@ -22,6 +22,8 @@
 #   PLATFORM   Target platform(s) for buildx, e.g. "linux/amd64" or
 #              "linux/amd64,linux/arm64". Empty = native platform.
 #   PUSH       "false" to build without pushing (default: "true").
+#   GIT_PUSH   "false" to commit the bumped `buildVersion` without pushing the
+#              commit to the git remote (default: "true").
 #
 # Examples:
 #   ./build.sh                                   # build and push all three tags
@@ -41,15 +43,18 @@ REGISTRY="${REGISTRY:-ghcr.io/r-tg}"
 PUSH="${PUSH:-true}"
 PLATFORM="${PLATFORM:-}"
 BUMP="${BUMP:-true}"
+GIT_PUSH="${GIT_PUSH:-true}"
 
 # Resolve the git revision; fall back gracefully outside a git checkout.
 HEAD="$(git rev-parse --short=7 HEAD 2>/dev/null || true)"
 
 # Resolve the version tag. Without an explicit VERSION, bump the `buildVersion`
 # patch in package.json (unless BUMP=false) and tag the image with the result.
+DID_BUMP="false"
 if [ -n "${VERSION:-}" ]; then
   :
 elif [ "$BUMP" = "true" ]; then
+  DID_BUMP="true"
   VERSION="$(node -e '
     const fs = require("fs");
     const path = "./package.json";
@@ -95,6 +100,17 @@ else
       [ "$ARG" = "-t" ] && continue
       docker push "$ARG"
     done
+  fi
+fi
+
+# Commit the auto-incremented `buildVersion` now that the build has succeeded.
+if [ "$DID_BUMP" = "true" ] && git rev-parse --git-dir >/dev/null 2>&1; then
+  if ! git diff --quiet -- package.json; then
+    git commit -q -m "[Build] Bump buildVersion to ${VERSION}" -- package.json
+    echo "==> Committed buildVersion ${VERSION}"
+    if [ "$GIT_PUSH" = "true" ]; then
+      git push -q && echo "==> Pushed buildVersion commit"
+    fi
   fi
 fi
 
